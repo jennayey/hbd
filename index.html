@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dhb alliev</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+
+</head>
+<style> 
+    .sniglet-regular {
+  font-family: "Sniglet", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sniglet-extrabold {
+  font-family: "Sniglet", system-ui;
+  font-weight: 800;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.rocker {
+  width: 100px;
+  height: 100px;
+  animation: rock 2s ease-in-out infinite alternate;
+  transform-origin: center center; /* change to "bottom center" for a pendulum feel */
+}
+body {
+    background-color: pink;
+    color: rgb(45, 4, 33);
+}
+
+@keyframes rock {
+  from { transform: rotate(-20deg); }
+  to   { transform: rotate(20deg); }
+}
+
+.main-class {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* full viewport height */
+}
+.confetti {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  opacity: 0;
+  /* iteration count of 1 means it plays only once */
+  animation: confetti-fall var(--dur) ease-in var(--delay) 1 forwards;
+}
+
+@keyframes confetti-fall {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(var(--drift), 105vh, 0) rotate(var(--spin)); opacity: 1; }
+}
+
+.rocker {
+  width: 200px;
+  height: 200px;
+  animation: rock 2s ease-in-out infinite alternate;
+}
+
+@keyframes rock {
+  from { transform: rotate(-20deg); }
+  to   { transform: rotate(20deg); }
+}
+</style>
+<script>
+(function () {
+  var KEY = "confettiPlayed";
+
+  // First visit only: skip if already played
+  try {
+    if (localStorage.getItem(KEY)) return;
+    localStorage.setItem(KEY, "1");
+  } catch (e) {}
+
+  var box = document.getElementById("confetti");
+  var colors = ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93"];
+
+  for (var i = 0; i < 80; i++) {
+    var p = document.createElement("i");
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.setProperty("--dur", 2.5 + Math.random() * 2 + "s");
+    p.style.setProperty("--delay", Math.random() * 0.8 + "s");
+    p.style.setProperty("--drift", (Math.random() * 200 - 100) + "px");
+    p.style.setProperty("--spin", (Math.random() * 900 + 360) + "deg");
+    box.appendChild(p);
+  }
+
+  // Clean up after it finishes
+  setTimeout(function () { box.remove(); }, 6000);
+})();
+</script>
+<body>
+    <div class="main-class">
+        <div id="confetti" class="confetti"></div>
+        <img class="rocker" src="pic.png" alt="Rocking placeholder image">
+        <h1 class="sniglet-extrabold">Happy Birthday, Viella!</h1>
+                <p class="sniglet">May you have good health, and may all your dreams come true!</p>
+
+
+    </div>
+</body>
+</html>
